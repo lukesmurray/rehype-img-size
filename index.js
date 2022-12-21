@@ -37,7 +37,7 @@ function setImageSize(options) {
     function visitor(node) {
       if (node.tagName === 'img') {
         const src = node.properties.src
-        const dimensions = getImageSize(src, dir ?? (file instanceof VFile ? file.path : undefined)) || {};
+        const dimensions = getImageSize(src, dir ?? (file instanceof VFile ? path.dirname(file.path) : undefined)) || {};
         node.properties.width = dimensions.width
         node.properties.height = dimensions.height
       }
