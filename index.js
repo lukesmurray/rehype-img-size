@@ -1,6 +1,7 @@
 import path from 'path'
 import {visit} from 'unist-util-visit'
 import sizeOf from 'image-size'
+import {VFile} from 'vfile'
 
 export default setImageSize
 
@@ -36,7 +37,7 @@ function setImageSize(options) {
     function visitor(node) {
       if (node.tagName === 'img') {
         const src = node.properties.src
-        const dimensions = getImageSize(src, dir) || {};
+        const dimensions = getImageSize(src, dir ?? (file instanceof VFile ? file.path : undefined)) || {};
         node.properties.width = dimensions.width
         node.properties.height = dimensions.height
       }
